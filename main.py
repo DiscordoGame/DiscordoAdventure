@@ -9,9 +9,12 @@ class MyClient(discord.Client):
         if message.author == self.user:
             return
 
-        if message.content == '!start':
+        # We only accept messages from TextChannels
+        if isinstance(message.content, discord.TextChannel) and message.content == '!start':
+            # Delete the message that the user sent with '!start' in the general channel
             await message.delete();
-            await message.author.send('Hello traveler ' + message.author.name)
+            # DM the author of message with a greating
+            await message.author.send('Hello traveler ' + message.author.name + ".")
 
 client = MyClient()
 client.run(open('token.txt', 'r').read())
