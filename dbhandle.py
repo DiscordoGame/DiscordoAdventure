@@ -5,7 +5,7 @@ class DatabaseHandle:
     
     def __init__(self):
         # TODO(mateusz): create a config class that will store this info
-        host = 'localhost'
+        host = open('remote_dbhost.txt').read().strip()
         user = 'root'
         passwd = open('dbpass.txt').read().strip()
         
