@@ -1,3 +1,6 @@
+from dbhandle import DatabaseHandle
+from common.config import Config
+
 import discord
 
 class MyClient(discord.Client):
@@ -25,7 +28,12 @@ class MyClient(discord.Client):
                 response = "You really want to \"" + command + "\" " + parts[1] + "?"
 
             await message.author.send(response)
-                
+
+Config.load_from('config.json')
+
+# NOTE(mateusz): I swear this is for debugging
+db = DatabaseHandle()
+assert db.get_record_count('players') == 1
 
 client = MyClient()
-client.run(open('token.txt', 'r').read())
+client.run(Config.get_by_key('token'))

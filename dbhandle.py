@@ -1,13 +1,13 @@
+from common.config import Config
 import MySQLdb
 
 class DatabaseHandle:
     handle = None
     
     def __init__(self):
-        # TODO(mateusz): create a config class that will store this info
-        host = open('remote_dbhost.txt').read().strip()
-        user = 'root'
-        passwd = open('dbpass.txt').read().strip()
+        host = Config.get_by_key('db_host')
+        user = Config.get_by_key('db_user')
+        passwd = Config.get_by_key('db_pass')
         
         if DatabaseHandle.handle == None:
             try:
