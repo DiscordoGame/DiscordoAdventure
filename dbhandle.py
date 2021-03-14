@@ -1,4 +1,4 @@
-from MySQLdb import _mysql
+import MySQLdb
 
 class DatabaseHandle:
     handle = None
@@ -11,7 +11,7 @@ class DatabaseHandle:
         
         if DatabaseHandle.handle == None:
             try:
-                DatabaseHandle.handle = _mysql.connect(host = host, user = user, passwd = passwd)
+                DatabaseHandle.handle = MySQLdb.connect(host = host, user = user, passwd = passwd)
             except Exception as e:
                 print('Error connecting to database: ' + str(e))
 
@@ -27,7 +27,9 @@ class DatabaseHandle:
         # Anyway, this is stupid and is just here for debugging
 
         sql = "SELECT * FROM " + table_name.strip() + ";"
-        DatabaseHandle.handle.query(sql)
-        res = DatabaseHandle.handle.store_result();
+        cursor = DatabaseHandle.handle.cursor();
+        cursor.execute(sql)
 
-        return res.num_rows()
+        result = cursor.rowcount
+        cursor.close()
+        return result
