@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Basic token text file
-token.txt
+config.json
