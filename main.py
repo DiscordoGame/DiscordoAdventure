@@ -1,5 +1,6 @@
 from dbhandle import DatabaseHandle
 from common.config import Config
+from game.player import Player
 
 import discord
 
@@ -18,6 +19,8 @@ class MyClient(discord.Client):
             await message.delete();
             # DM the author of message with a greating
             await message.author.send('Hello traveler ' + message.author.name + ".")
+            player = Player(message.author.id, message.created_at)
+            player.save_to_db()
         elif isinstance(message.channel, discord.DMChannel):
             # Should split on regex with multiple spaces
             parts = message.content.strip().split(' ')
@@ -30,10 +33,6 @@ class MyClient(discord.Client):
             await message.author.send(response)
 
 Config.load_from('config.json')
-
-# NOTE(mateusz): I swear this is for debugging
-db = DatabaseHandle()
-assert db.get_record_count('players') == 1
 
 client = MyClient()
 client.run(Config.get_by_key('token'))
