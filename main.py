@@ -1,5 +1,6 @@
 from dbhandle import DatabaseHandle
 from common.config import Config
+from common.cmd_parser import CmdParser
 from game.player import Player
 
 import discord
@@ -13,8 +14,10 @@ class MyClient(discord.Client):
         if message.author == self.user:
             return
 
+        p = CmdParser(message.content)
+        
         # We only accept messages from TextChannels
-        if isinstance(message.channel, discord.TextChannel) and message.content == '!start':
+        if isinstance(message.channel, discord.TextChannel) and p.is_command and p.get_command() == 'start':
             # Delete the message that the user sent with '!start' in the general channel
             await message.delete();
             # DM the author of message with a greating
