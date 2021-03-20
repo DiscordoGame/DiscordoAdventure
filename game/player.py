@@ -7,9 +7,10 @@ class Player:
     def seen_tutorial(self):
         db = DatabaseHandler()
 
-        cmd = "SELECT seen_tutorial from players where discord_id = %s"
-        if db.get_query(cmd):
-            res = c.fetchone()[0]
+        cmd = f"SELECT seen_tutorial from players where discord_id = {self.discord_id}"
+        response = db.get_query(cmd)
+        if response:
+            res = response.fetchone()[0]
             return res
         else:
             return False
