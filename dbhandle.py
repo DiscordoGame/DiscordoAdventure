@@ -15,7 +15,7 @@ class DatabaseHandle:
             except Exception as e:
                 print('Error connecting to database: ' + str(e))
 
-            test_db_name = 'players'
+            test_db_name = Config.get_by_key('test_db_name')
             try:
                 DatabaseHandle.__handle.query('USE ' + test_db_name + ";")
             except Exception as e:
