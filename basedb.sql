@@ -23,8 +23,13 @@ DROP TABLE IF EXISTS `items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `items` (
-  `id` int(10) unsigned NOT NULL,
-  `type` enum('GOLD','WEAPON','USEABLE','MISC') NOT NULL DEFAULT 'MISC',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL,
+  `stat1` int(10) DEFAULT NULL,
+  `stat2` int(10) DEFAULT NULL,
+  `stat3` int(10) DEFAULT NULL,
+  `stat4` int(10) DEFAULT NULL,
+  `type` enum('GOLD','WEAPON','USEABLE','MISC') NOT NULL,
   `value` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -77,7 +82,7 @@ DROP TABLE IF EXISTS `regions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `regions` (
-  `id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `biom_id` int(10) unsigned NOT NULL,
   `north_region_id` int(10) unsigned NOT NULL,
   `east_region_id` int(10) unsigned NOT NULL,
@@ -97,6 +102,71 @@ LOCK TABLES `regions` WRITE;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+DROP TABLE IF EXISTS `monsters`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `monsters` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL DEFAULT "Zygfryd",
+  `biome` int(10) unsigned NOT NULL,
+  `starthp` int(10) unsigned NOT NULL DEFAULT 10,
+  `attack` int(10) unsigned NOT NULL DEFAULT 10,
+  `defense` int(10) unsigned NOT NULL DEFAULT 10,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `biomes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `biomes` (
+  `id` int(10) unsigned AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL DEFAULT "Morenka",
+  `description` longtext,
+  `monster_count` int(10) unsigned,
+  `loot_count` int(10) unsigned,
+  `biome_probability` enum('COMMON', 'RARE', 'EPIC') NOT NULL,
+  `dark` bool NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `monster_regions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `monster_regions` (
+  `id` int(10) unsigned AUTO_INCREMENT,
+  `id_monster` int(10) unsigned,
+  `id_region` int(10) unsigned,
+  `hp` int(10) unsigned,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `monster_regions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `monster_regions` (
+  `id` int(10) unsigned AUTO_INCREMENT,
+  `id_monster` int(10) unsigned,
+  `id_region` int(10) unsigned,
+  `hp` int(10) unsigned,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `items_regions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `items_regions` (
+  `id` int(10) unsigned AUTO_INCREMENT,
+  `id_item` int(10) unsigned,
+  `id_region` int(10) unsigned,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
