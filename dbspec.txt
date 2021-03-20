@@ -13,7 +13,7 @@
 
 - Region table:
 {
-	id_region (INT UNSIGNED PRIMARY KEY),
+	id_region (INT UNSIGNED PRIMARY KEY AUTO INCREMENT),
 	biom_id (INT UNSIGNED),
 	north_region_id (INT UNSIGNED),
 	east_region_id (INT UNSIGNED),
@@ -23,36 +23,48 @@
 
 - Items tables:
 {
-	id_item (INT UNSIGNED PRIMARY KEY),
+	id_item (INT UNSIGNED PRIMARY KEY AUTO INCREMENT),
+	name (VARCHAR(256)),
+	stat1 (INT),
+	stat2 (INT),
+	stat3 (INT),
+	stat4 (INT),
 	type (enum ('GOLD', 'WEAPON', 'USEABLE', 'MISC'))
 	value (INT)
 }
 
 - Monsters tables:
 {
-	id_monster (INT UNSIGNED PRIMARY KEY),
+	id_monster (INT UNSIGNED PRIMARY KEY AUTO INCREMENT),
 	name (VARCHAR(256))
 	biome (INT UNSIGNED)
-	hp (INT UNSIGNED)
+	starthp (INT UNSIGNED)
 	attack (INT UNSIGNED)
 	defense (INT UNSIGNED)
 }
 
 - Biomes tables:
 {
-	id_biome (INT UNSIGNED PRIMARY KEY),
+	id_biome (INT UNSIGNED PRIMARY KEY AUTO INCREMENT),
 	name (VARCHAR(256))
 	description (LONGTEXT)
 	monster_count(INT UNSIGNED)
 	loot_count(INT UNSIGNED)
-	biome_probability(INT UNSIGNED)
+	biome_probability(enum('COMMON', 'RARE', 'EPIC'))
 	dark (BOOL)
 }
 
-- WhereMonster tables:
+- MonsterRegion tables:
 {
-	id (INT UNSIGNED PRIMARY KEY),
+	id_mr (INT UNSIGNED PRIMARY KEY AUTO INCREMENT),
 	id_monster (INT UNSIGNED),
 	id_region (INT UNSIGNED),
-	hp (INT UNSIGNED),
+	hp (INT UNSIGNED)
+}
+
+- ItemsRegion tables:
+{
+	id_ir (INT UNSIGNED PRIMARY KEY AUTO INCREMENT),
+	id_item (INT UNSIGNED),
+	id_region (INT UNSIGNED),
 }
