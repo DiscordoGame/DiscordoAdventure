@@ -1,6 +1,4 @@
-from common.dbhandle import DatabaseHandler
-
-import MySQLdb
+from common.dbhandler import DatabaseHandler
 
 class Player:
     def __init__(self, discord_id, login_date):

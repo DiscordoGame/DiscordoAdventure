@@ -1,4 +1,4 @@
-from common.dbhandle import DatabaseHandler
+from common.dbhandler import DatabaseHandler
 from common.config import Config
 from common.cmd_parser import CmdParser
 from common.langs import Langs
@@ -30,9 +30,6 @@ class MyClient(discord.Client):
                 # DM the author of message with a greating
                 await author.send('Hello traveler ' + author.name + ".")
 
-                # TODO(mateusz): Should probably be read from some sort
-                # of a file where bot responses are stored to allow 
-                # maybe for translation and easier addition of lines
                 player.save_to_db()
                 
         elif isinstance(message.channel, discord.DMChannel):
