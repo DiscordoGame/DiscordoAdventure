@@ -2,7 +2,8 @@
 {
 	discord_id (BIGINT UNSIGNED PRIMARY KEY),
 	first_msg_date (DATE), 
-	last_msg_date (DATE), seen_tutorial (BOOL),
+	last_msg_date (DATE),
+	seen_tutorial (BOOL),
 	current_region_id (INT),
 	health (INT),
 	mana (INT),

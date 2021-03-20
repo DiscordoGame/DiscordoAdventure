@@ -3,28 +3,26 @@ from common.dbhandle import DatabaseHandler
 import MySQLdb
 
 class Player:
-    def __init__(self, discord_id):
+    def __init__(self, discord_id, login_date):
         self.discord_id = discord_id
 
-        db = DatabaseHandle()
+        db = DatabaseHandler()
+        cmd = f"SELECT * from players where discord_id = {self.discord_id}"
+        if db.get_query(cmd):
+            c = db.last_cursor
 
-        cmd = "SELECT * from players where discord_id = %s"
-        c = db.handle.cursor(MySQLdb.cursors.DictCursor)
-        if c.execute(cmd, (self.discord_id,)):
             assert c.rowcount == 1
             d = c.fetchone()
             assert d['discord_id'] == discord_id
             self.data = d
         else:
-            cmd = "INSERT INTO players VALUES(%s, %s, %s, 0, 1, NULL, NULL, NULL, NULL)"
-            c = db.handle.cursor(MySQLdb.cursors.DictCursor)
-            db.handle.commit()
+            cmd = f"INSERT INTO players (discord_id, first_msg_date, last_msg_date, seen_tutorial, current_region_id) VALUES({self.discord_id}, {login_date}, {login_date}, 0, 1)"
+            db.set_query(cmd)
 
             # TODO(mateusz): @Copy-paste
-            c.execute(cmd, (discord_id, ident_date, ident_date,))
-            cmd = "SELETCT * from players where discord_id = %s"
-            c = db.handle.cursor(MySQLdb.cursors.DictCursor)
-            assert c.execute(cmd, (self.discord_id, ))
+            cmd = f"SELECT * from players where discord_id = {self.discord_id}"
+            db.get_query(cmd)
+            c = db.last_cursor
 
             assert c.rowcount == 1
             d = c.fetchone()
@@ -60,21 +58,10 @@ class Player:
         return self.data['exp']
     
     def seen_tutorial(self):
-        db = DatabaseHandler()
-
-        cmd = "SELECT seen_tutorial from players where discord_id = %s"
-        if db.get_query(cmd):
-            res = c.fetchone()[0]
-            return res
-        else:
-            return False
+        return self.seen_tutorial
         
-    def save_to_db(self, login_date):
-#        cmd = f"INSERT INTO players VALUES({self.discord_id}, {login_date}, {login_date}, 0) ON DUPLICATE KEY UPDATE last_msg_date = {login_date}"
+    def save_to_db(self):
         db = DatabaseHandler()
 
-        cmd = "UPDATE players SET last_msg_date = %s WHERE discord_id = %s"
-        c = db.handle.cursor();
-        c.execute(cmd, (self.last_msg_date, self.discord_id,))
-        db.handle.commit();
-        #db.set_query(cmd)
+        cmd = f"UPDATE players SET last_msg_date = '{self.last_msg_date}' WHERE discord_id = {self.discord_id}"
+        db.set_query(cmd)

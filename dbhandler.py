@@ -5,6 +5,7 @@ class DatabaseHandler:
     __handle = None
     
     def __init__(self):
+        self.last_cursor = None
         host = Config.get_by_key('db_host')
         user = Config.get_by_key('db_user')
         passwd = Config.get_by_key('db_pass')
@@ -40,12 +41,14 @@ class DatabaseHandler:
 
     def get_query(self,cmd):
         db = DatabaseHandler()
-        c = db.handle.cursor();
+        c = db.handle.cursor(MySQLdb.cursors.DictCursor);
+        self.last_cursor = c
         return c.execute(cmd)
-        
     
     def set_query(self,cmd):
         db = DatabaseHandler()
         c = db.handle.cursor();
         c.execute(cmd)
         db.handle.commit();
+
+        self.last_cursor = c
