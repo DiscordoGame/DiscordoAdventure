@@ -1,7 +1,7 @@
 from common.config import Config
 import MySQLdb
 
-class DatabaseHandle:
+class DatabaseHandler:
     __handle = None
     
     def __init__(self):
@@ -9,21 +9,21 @@ class DatabaseHandle:
         user = Config.get_by_key('db_user')
         passwd = Config.get_by_key('db_pass')
         
-        if DatabaseHandle.__handle == None:
+        if DatabaseHandler.__handle == None:
             try:
-                DatabaseHandle.__handle = MySQLdb.connect(host = host, user = user, passwd = passwd)
+                DatabaseHandler.__handle = MySQLdb.connect(host = host, user = user, passwd = passwd)
             except Exception as e:
                 print('Error connecting to database: ' + str(e))
 
             test_db_name = Config.get_by_key('test_db_name')
             try:
-                DatabaseHandle.__handle.query('USE ' + test_db_name + ";")
+                DatabaseHandler.__handle.query('USE ' + test_db_name + ";")
             except Exception as e:
                 print('Error setting the database we are going to use: ' + str(e))
 
     @property
     def handle(self):
-        return DatabaseHandle.__handle
+        return DatabaseHandler.__handle
 
     def get_record_count(self, table_name):
         # TODO(mateusz): Should set-up some rules how to guards
