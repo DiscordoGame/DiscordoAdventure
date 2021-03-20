@@ -26,3 +26,31 @@
 	type (enum ('GOLD', 'WEAPON', 'USEABLE', 'MISC'))
 	value (INT)
 }
+
+- Monsters tables:
+{
+	id_monster (INT UNSIGNED PRIMARY KEY),
+	name (VARCHAR(256))
+	biome (INT UNSIGNED)
+	hp (INT UNSIGNED)
+	attack (INT UNSIGNED)
+	defense (INT UNSIGNED)
+}
+
+- Biomes tables:
+{
+	id_biome (INT UNSIGNED PRIMARY KEY),
+	name (VARCHAR(256))
+	description (LONGTEXT)
+	monster_count(INT UNSIGNED)
+	loot_count(INT UNSIGNED)
+	dark (BOOL)
+}
+
+- WhereMonster tables:
+{
+	id (INT UNSIGNED PRIMARY KEY),
+	id_monster (INT UNSIGNED),
+	id_region (INT UNSIGNED),
+	hp (INT UNSIGNED),
+}
