@@ -37,3 +37,15 @@ class DatabaseHandler:
         result = cursor.rowcount
         cursor.close()
         return result
+
+    def get_query(self,cmd):
+        db = DatabaseHandler()
+        c = db.handle.cursor();
+        return c.execute(cmd)
+        
+    
+    def set_query(self,cmd):
+        db = DatabaseHandler()
+        c = db.handle.cursor();
+        c.execute(cmd)
+        db.handle.commit();
