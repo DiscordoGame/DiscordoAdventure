@@ -1,6 +1,7 @@
 from common.dbhandler import DatabaseHandler
 from common.config import Config
 from common.cmd_parser import CmdParser
+from common.interpreter import CmdInterpreter
 from common.langs import Langs
 from game.player import Player
 from pathlib import Path
@@ -49,8 +50,8 @@ class MyClient(discord.Client):
                 response = "What " + parts[0] + "??"
             else:
                 command = parts[0]
-                response = "You really want to \"" + command + "\" " + parts[1] + "?"
-
+                arg = parts[1]
+                CmdInterpreter.interact(command,arg)
             await message.author.send(response)
 
 if __name__ == "__main__":

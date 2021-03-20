@@ -1,6 +1,6 @@
 from game.crawl import Crawler
 
-class CommandInterpreter():
+class CmdInterpreter():
     mapping = {
             "go": lambda player, noun: Crawler(player).walk(noun),
             "drop": lambda noun: "Not yet implemented",
@@ -20,7 +20,7 @@ class CommandInterpreter():
 
     @staticmethod
     def interact(player,verb,noun):
-        action = CommandInterpreter.mapping(verb)
+        action = CmdInterpreter.mapping(verb)
         action(player,noun)
         # NOTE(mateusz): each handle returns None on success and a string when an error
         # occured. That string describes the error

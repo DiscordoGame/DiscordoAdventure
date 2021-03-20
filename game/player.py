@@ -14,7 +14,7 @@ class Player:
             assert d['discord_id'] == discord_id
             self.data = d
         else:
-            cmd = f"INSERT INTO players (discord_id, first_msg_date, last_msg_date, seen_tutorial, current_region_id) VALUES({self.discord_id}, {login_date}, {login_date}, 0, 1)"
+            cmd = f"INSERT INTO players (discord_id, first_msg_date, last_msg_date, seen_tutorial, current_region_id) VALUES({self.discord_id},'{login_date}',' {login_date}', 0, 1)"
             db.set_query(cmd)
 
             # TODO(mateusz): @Copy-paste
