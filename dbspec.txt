@@ -54,5 +54,5 @@
 	id (INT UNSIGNED PRIMARY KEY),
 	id_monster (INT UNSIGNED),
 	id_region (INT UNSIGNED),
-	hp (INT UNSIGNED),
+	hp (ENUM),
 }
