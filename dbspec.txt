@@ -5,7 +5,7 @@
 	last_msg_date (DATE), seen_tutorial (BOOL),
 	current_region_id (INT),
 	health (INT),
-	MANA (INT),
+	mana (INT),
 	gold (INT),
 	exp (INT)	
 }
@@ -22,7 +22,7 @@
 
 - Items tables:
 {
-	id (INT UNSIGNED PRIMARY KEY),
+	id_item (INT UNSIGNED PRIMARY KEY),
 	type (enum ('GOLD', 'WEAPON', 'USEABLE', 'MISC'))
 	value (INT)
 }
