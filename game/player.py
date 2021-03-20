@@ -70,7 +70,7 @@ class Player:
             return False
         
     def save_to_db(self, login_date):
-        cmd = f"INSERT INTO players VALUES({self.discord_id}, {login_date}, {login_date}, 0) ON DUPLICATE KEY UPDATE last_msg_date = {login_date}"
+#        cmd = f"INSERT INTO players VALUES({self.discord_id}, {login_date}, {login_date}, 0) ON DUPLICATE KEY UPDATE last_msg_date = {login_date}"
         db = DatabaseHandler()
 
         cmd = "UPDATE players SET last_msg_date = %s WHERE discord_id = %s"
@@ -78,4 +78,3 @@ class Player:
         c.execute(cmd, (self.last_msg_date, self.discord_id,))
         db.handle.commit();
         #db.set_query(cmd)
-
