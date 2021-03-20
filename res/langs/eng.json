@@ -1,0 +1,5 @@
+{
+  "tutorial_intro": "To play the game send me two word commands with out the need for the prefixing '!'. Each command has a body like so <verb> <noun>, where verb is the thing you want to do and noun the thing you want to do it with. To get a list of all possible commands send a 'help commands' message.",
+  "tutorial_confirm": "To practice your first command you can confirm to me that you understand everything and don't want to see this tutorial anymore. Simply type 'dismiss tutorial'...",
+  "help": "To start the game type !start and I will guide you through everything that you need to know."
+}

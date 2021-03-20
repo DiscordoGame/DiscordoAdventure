@@ -1,9 +1,9 @@
-from dbhandle import DatabaseHandle
+from common.dbhandle import DatabaseHandler
 
 import MySQLdb
 
 class Player:
-    def __init__(self, discord_id, ident_date):
+    def __init__(self, discord_id):
         self.discord_id = discord_id
 
         db = DatabaseHandle()
@@ -60,7 +60,7 @@ class Player:
         return self.data['exp']
     
     def seen_tutorial(self):
-        db = DatabaseHandle()
+        db = DatabaseHandler()
 
         cmd = "SELECT seen_tutorial from players where discord_id = %s"
         c = db.handle.cursor();
@@ -70,8 +70,8 @@ class Player:
         else:
             return False
         
-    def save_to_db(self):
-        db = DatabaseHandle()
+    def save_to_db(self, login_date):
+        db = DatabaseHandler()
 
         cmd = "UPDATE players SET last_msg_date = %s WHERE discord_id = %s"
         c = db.handle.cursor();
