@@ -45,6 +45,7 @@
 	description (LONGTEXT)
 	monster_count(INT UNSIGNED)
 	loot_count(INT UNSIGNED)
+	biome_probability(INT UNSIGNED)
 	dark (BOOL)
 }
 
