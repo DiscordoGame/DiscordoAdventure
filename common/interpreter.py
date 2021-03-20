@@ -2,7 +2,7 @@ from game.crawl import Crawler
 
 class CommandInterpreter():
     mapping = {
-            "go": Crawler.walk,
+            "go": lambda player, noun: Crawler(player).walk(noun),
             "drop": lambda noun: "Not yet implemented",
             "attack": lambda noun: "Not yet implemented",
             "open": lambda noun: "Not yet implemented",

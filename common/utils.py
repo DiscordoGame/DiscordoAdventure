@@ -1,11 +1,11 @@
 import random
+from common.config import Config
 
-def get_random(chances_map):
-    #{example 70:"common",20:"rare",5:"epic",0.1:"legendary"}
-    
-    probab = sorted(chances_map.keys())
+def get_rarity():
+    chances = Config.get("rarity")
+    probab = sorted([int(i) for i in chances.keys()])
     roll = random() * 100
     for chance in probab:
         if(roll < chance):
-            return chances_map[probab]
+            return chances[str(probab)]
         
