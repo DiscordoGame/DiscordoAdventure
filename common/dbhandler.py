@@ -3,6 +3,7 @@ import MySQLdb
 
 class DatabaseHandler:
     __handle = None
+    __last_cursor = None
     
     def __init__(self):
         host = Config.get_by_key('db_host')
@@ -25,27 +26,21 @@ class DatabaseHandler:
     def handle(self):
         return DatabaseHandler.__handle
 
-    def get_record_count(self, table_name):
-        # TODO(mateusz): Should set-up some rules how to guards
-        # against unwanted SQL injection attacks
-        # Anyway, this is stupid and is just here for debugging
+    def set_last_cursor(self, c):
+        DatabaseHandler.__last_cursor = c
 
-        sql = "SELECT * FROM " + table_name.strip() + ";"
-        cursor = self.handle.cursor();
-        cursor.execute(sql)
-
-        result = cursor.rowcount
-        cursor.close()
-        return result
+    @property
+    def last_cursor(self):
+        return DatabaseHandler.__last_cursor
 
     def get_query(self,cmd):
-        db = DatabaseHandler()
-        c = db.handle.cursor();
+        c = self.handle.cursor(MySQLdb.cursors.DictCursor);
+        self.set_last_cursor(c)
         return c.execute(cmd)
-        
     
     def set_query(self,cmd):
-        db = DatabaseHandler()
-        c = db.handle.cursor();
+        c = self.handle.cursor();
         c.execute(cmd)
-        db.handle.commit();
+        self.handle.commit();
+
+        self.set_last_cursor(c)

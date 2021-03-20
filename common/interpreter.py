@@ -1,10 +1,8 @@
-class PlayerCommandInterpreter():
-    def __init__(self, player, verb, noun):
-        self.player = player
-        self.verb = verb
-        self.noun = noun
-        self.mapping = {
-            "go": self.walk,
+from game.crawl import Crawler
+
+class CommandInterpreter():
+    mapping = {
+            "go": Crawler.walk,
             "drop": lambda noun: "Not yet implemented",
             "attack": lambda noun: "Not yet implemented",
             "open": lambda noun: "Not yet implemented",
@@ -20,6 +18,10 @@ class PlayerCommandInterpreter():
             "dismiss": lambda noun: "Not yet implemented"
         }
 
+    @staticmethod
+    def interact(player,verb,noun):
+        action = CommandInterpreter.mapping(verb)
+        action(player,noun)
         # NOTE(mateusz): each handle returns None on success and a string when an error
         # occured. That string describes the error
         

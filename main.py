@@ -1,4 +1,4 @@
-from common.dbhandle import DatabaseHandler
+from common.dbhandler import DatabaseHandler
 from common.config import Config
 from common.cmd_parser import CmdParser
 from common.langs import Langs
@@ -19,7 +19,7 @@ class MyClient(discord.Client):
 
         p = CmdParser(message.content)
         author = message.author;
-        player = Player(author.id)
+        player = Player(author.id, message.created_at)
         
         # We only accept messages from TextChannels
         if isinstance(message.channel, discord.TextChannel) and p.is_command:
@@ -30,10 +30,7 @@ class MyClient(discord.Client):
                 # DM the author of message with a greating
                 await author.send('Hello traveler ' + author.name + ".")
 
-                # TODO(mateusz): Should probably be read from some sort
-                # of a file where bot responses are stored to allow 
-                # maybe for translation and easier addition of lines
-                player.save_to_db(message.created_at)
+                player.save_to_db()
                 
         elif isinstance(message.channel, discord.DMChannel):
             if not player.seen_tutorial():
