@@ -13,7 +13,7 @@ class CmdParser:
         return self.parsed['is_cmd']
 
     def parse(self):
-        if len(self.content) == 0 or self.content[0] != '!':
+        if len(self.content) == 0:
             self.parsed = { "is_cmd": False }
             return
 
@@ -29,7 +29,6 @@ class CmdParser:
     def get_command(self):
         if self.parsed == None:
             self.parse()
-
         return self.parsed['cmd']
 
     def get_arguments(self):

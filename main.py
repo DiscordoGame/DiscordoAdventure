@@ -105,7 +105,7 @@ class MyClient(discord.Client):
             else:
                 command = parts[0]
                 arg = parts[1]
-                CmdInterpreter.interact(command,arg)
+                response = CmdInterpreter.interact(player.discord_id,command,arg)
             await message.author.send(response)
 
 if __name__ == "__main__":

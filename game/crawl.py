@@ -43,7 +43,7 @@ class Crawler:
         biome = random.choice(biome_list)
         description = "full of tres, trees, and treees"
         reg_id = 420 #CREATE ROW, WITH ID, RETURN THIS ID, SET DIRECTION FROM DRIECTION BACK FROM current_region
-        self.generate_enemies(biome,monster=True)
+        self.generate_entities(biome,monster=True)
         self.generate_entities(biome,item=True)
         return f"Exploring {biome}, {description}"
         

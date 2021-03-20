@@ -20,8 +20,8 @@ class CmdInterpreter():
 
     @staticmethod
     def interact(player,verb,noun):
-        action = CmdInterpreter.mapping(verb)
-        action(player,noun)
+        action = CmdInterpreter.mapping[verb]
+        return action(player,noun)
         # NOTE(mateusz): each handle returns None on success and a string when an error
         # occured. That string describes the error
         
